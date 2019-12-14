@@ -250,7 +250,7 @@ A questo punto il nostro swagger dovrebbe risultare molto simile al seguente:
 
 Una volta che avremo finito di descrivere la nostra User API, ciò che manca è una webapp in grado di interfacciarsi con la stessa.
 
-La Swagger Codegen risponde alle nostra esigenze, in quanto ci permette di generare il codice a partire dallo YAML, limitando al minimo gli errori.
+La Swagger Codegen risponde alle nostre esigenze, in quanto ci permette di generare il codice a partire dallo YAML, limitando al minimo gli errori.
 Ad esempio, se il nostro applicativo deve essere scritto in Java, la Codegen creerà per noi sia le interfaccie API, che i modelli POJO. 
 
 :fire: _[che cosa sono i POJO](https://it.wikipedia.org/wiki/Plain_Old_Java_Object)
@@ -260,11 +260,13 @@ Nella barra in alto clicchiamo su `Generate Server`, dopodichè selezioniamo `sp
 
 ![Codegen 1](6.png)
 
+:fire: _[Spring framework](https://spring.io/)
+
 Partirà in automatico il download del nostro codice Java autogenerato, compatibile con l'utilizzo del framework Spring o Spring Boot.
-La struttura dei folder dovrebbe essere simile alla seguente
+La struttura dei folder dovrebbe essere simile alla seguente:
 
 ![Codegen 2](7.png)
 
-:fire: _[Spring framework](https://spring.io/)
+## Correlati
 
-Per vedere come creare un servizio Spring Boot, seguire la pillola: <link>.
+[Creare un servizio Spring Boot](https://github.com/danilopaissan/moovacademypub/blob/master/createspringbservice.md)
