@@ -1,0 +1,109 @@
+swagger: "2.0"
+info:
+  description: "This is our Moovacademy User API!"
+  version: "1.0.0"
+  title: "User API"
+host: "localhost:8080"
+basePath: "/moovacademy"
+schemes:
+- "http"
+
+paths:
+  /user/{username}:
+    get:
+      tags:
+        - "user"
+      summary: "Find an user by username"
+      operationId: "findUserByUsername"
+      produces:
+      - "application/json"
+      parameters:
+      - name: username
+        in: path
+        description: "The username to search"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: "not found"
+          schema:
+            $ref: '#/definitions/Error'
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: "Create a new user"
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "invalid input"
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      tags:
+        - "user"
+      summary: "Update an existing user"
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "invalid input"
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: "not found"
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+        - "user"
+      summary: "Delete an user"
+      operationId: "deleteUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: username
+        in: query
+        description: "The username to search"
+        required: true
+        type: string
+      responses:
+        204:
+          description: "successful operation"
+        404:
+          description: "not found"
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      email:
+        type: string  
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+      detail:
+        type: string
