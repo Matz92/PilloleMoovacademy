@@ -113,6 +113,7 @@ definitions:
 ```
 
 Sulla schermata destra dello Swagger Editor dovrebbe essere apparsa la nostra nuova User API!
+
 ![Panoramica editor](1.png)
 
 Allo stato attuale stiamo descrivendo un servizio molto semplice, in grado di gestire solo un operazione di lettura HTTP GET da noi definita come `findUserByUsername`.
@@ -131,9 +132,11 @@ http://localhost:8080/moovacademy/user/moovadmin
 La stessa identica chiamata può essere lanciata dal nostro swagger: difatti **protocollo**, **host** e **basepath** sono già tutti definiti nel modello.
 Per farlo, spostiamoci dall'editor al nostro swagger generato, e clicchiamo sull'unico metodo disponibile sotto il tag `user`, ovvero la chiamata GET.
 Si aprirà una tendina, dove noterete il parametro e le risposte che abbiamo definito nell'editor. Cliccate su `Try it out`.
+
 ![Prova chiamata 1](2.png)
 
 Una volta fatto, si sbloccherà il form per inserire l'username. Aggiungete `moovadmin`, dopodichè cliccate su `Execute`.
+
 ![Prova chiamata 2](3.png)
 
 Dopo un breve caricamento la chiamata CURL giustamente fallirà, ma noterete che il request url combacierà con quello di partenza.
@@ -238,6 +241,7 @@ Notiamo che nella DELETE è presente un parametro definito diversamente dai prec
 :fire: _[Approfondimento sui parametri HTTP](http://wahlnetwork.com/2017/09/25/working-with-restful-api-query-body-and-path-parameters/)
 
 A questo punto il nostro swagger dovrebbe risultare molto simile al seguente:
+
 ![Swagger finale](5.png)
 
 ## Generiamo il codice
@@ -253,10 +257,12 @@ Ad esempio, se il nostro applicativo deve essere scritto in Java, la Codegen cre
 
 Il metodo più veloce per utilizzare la Codegen è avvalersi delle funzionalità aggiuntive dello Swagger Editor.
 Nella barra in alto clicchiamo su `Generate Server`, dopodichè selezioniamo `spring`.
+
 ![Codegen 1](6.png)
 
 Partirà in automatico il download del nostro codice Java autogenerato, compatibile con l'utilizzo del framework Spring o Spring Boot.
 La struttura dei folder dovrebbe essere simile alla seguente
+
 ![Codegen 2](7.png)
 
 :fire: _[Spring framework](https://spring.io/)
