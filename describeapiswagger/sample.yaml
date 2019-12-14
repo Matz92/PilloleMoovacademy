@@ -40,6 +40,13 @@ paths:
       operationId: "createUser"
       produces:
       - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to save"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
       responses:
         201:
           description: "successful operation"
@@ -54,6 +61,13 @@ paths:
       operationId: "updateUser"
       produces:
       - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to save"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
       responses:
         201:
           description: "successful operation"

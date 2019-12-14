@@ -113,12 +113,13 @@ definitions:
 ```
 
 Sulla schermata destra dello Swagger Editor dovrebbe essere apparsa la nostra nuova User API!
+![Panoramica editor](1.png)
 
 Allo stato attuale stiamo descrivendo un servizio molto semplice, in grado di gestire solo un operazione di lettura HTTP GET da noi definita come `findUserByUsername`.
 
 :fire: _[Metodi di richiesta HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)
 
-Questo metodo, come suggerisce il nome, ci permette di trovare un utente in base ad un username arbitrario.
+Questo metodo, come suggerisce il nome, ci permette di trovare un utente in base ad un username arbitrario, definito nella sezione `parameters`.
 Se l'utente viene trovato la risposta avrà codice `200` e verrà restituito l'oggetto User in formato JSON, in caso contrario il codice sarà `404` e l'oggetto Error.
 
 :fire: _[Codici di stato HTTP](https://it.wikipedia.org/wiki/Codici_di_stato_HTTP)
@@ -129,21 +130,21 @@ http://localhost:8080/moovacademy/user/moovadmin
 ```
 La stessa identica chiamata può essere lanciata dal nostro swagger: difatti **protocollo**, **host** e **basepath** sono già tutti definiti nel modello.
 Per farlo, spostiamoci dall'editor al nostro swagger generato, e clicchiamo sull'unico metodo disponibile sotto il tag `user`, ovvero la chiamata GET.
-<figura1>
 Si aprirà una tendina, dove noterete il parametro e le risposte che abbiamo definito nell'editor. Cliccate su `Try it out`.
-<figura2>
-Una volta fatto, si sbloccherà il form per inserire l'username. Aggiungete `moovadmin`.
-<figura3>
-Cliccate su `Execute`. Dopo un breve caricamento la chiamata CURL giustamente fallirà, ma noterete che il request url combacierà con quello di partenza.
+![Prova chiamata 1](2.png)
+
+Una volta fatto, si sbloccherà il form per inserire l'username. Aggiungete `moovadmin`, dopodichè cliccate su `Execute`.
+![Prova chiamata 2](3.png)
+
+Dopo un breve caricamento la chiamata CURL giustamente fallirà, ma noterete che il request url combacierà con quello di partenza.
 
 :fire: _[cos'è CURL](http://www.curl.com/)
-<figura4>
 
 #### Aggiungiamo altri metodi
 
 Abbiamo descritto la nostra prima GET per recuperare un utente, ora passiamo alla creazione.
 Aggiungiamo dunque al nostro swagger un metodo POST in grado di creare un nuovo utente.
-Per farlo, copiamo il seguente testo nell'editor sotto al metodo GET.
+Per farlo copiamo il seguente testo nell'editor sotto al metodo GET, sullo stesso livello di `user/{username}`.
 ```
 /user:
     post:
@@ -153,6 +154,13 @@ Per farlo, copiamo il seguente testo nell'editor sotto al metodo GET.
       operationId: "createUser"
       produces:
       - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to save"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
       responses:
         201:
           description: "successful operation"
@@ -161,9 +169,10 @@ Per farlo, copiamo il seguente testo nell'editor sotto al metodo GET.
           schema:
             $ref: '#/definitions/Error'
 ```
-Dopo averlo fatto, noterete che il nuovo metodo è stato aggiunto nello swagger generato. 
-Per lanciare la richiesta direttamente dallo swagger il procedimento è analogo al caso precedente, fatta eccezione che in questo caso sarà necessario aggiungere il body in formato JSON alla richiesta.
-Ad esempio:
+Dopo averlo fatto noterete che il nuovo metodo è stato aggiunto nello swagger generato, e grazie al `tag` è stato raggruppato insieme alla GET precedente sotto la medesima etichetta `user`.
+
+Per lanciare la richiesta direttamente dallo swagger il procedimento è analogo al caso precedente, fatta eccezione che in questo caso dovremo aggiungere il body in formato JSON alla richiesta, come definito nella sezione `parameters`.
+Ad esempio potremmo definire un JSON in questo modo:
 ```
 {
   "id": "001",
@@ -173,10 +182,10 @@ Ad esempio:
   "lastName": "paperino"
 }
 ```
-<figura 5>
+![Prova chiamata 3](4.png)
 
 Proviamo ora ad aggiungere altri due metodi, una PUT per gli aggiornamenti ed una DELETE per le rimozioni.
-Aggiungiamo al modello il seguente testo, questa volta aggangiandoci al path `/user`:
+Aggiungiamo al modello il seguente testo, questa volta rimanendo allineati al path `/user` visto che a cambiare è solo il metodo:
 ```
     put:
       tags:
@@ -185,6 +194,13 @@ Aggiungiamo al modello il seguente testo, questa volta aggangiandoci al path `/u
       operationId: "updateUser"
       produces:
       - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to save"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
       responses:
         201:
           description: "successful operation"
@@ -217,6 +233,12 @@ Aggiungiamo al modello il seguente testo, questa volta aggangiandoci al path `/u
           schema:
             $ref: '#/definitions/Error'
 ```
+Notiamo che nella DELETE è presente un parametro definito diversamente dai precedenti, ovvero come `query`.
+
+:fire: _[Approfondimento sui parametri HTTP](http://wahlnetwork.com/2017/09/25/working-with-restful-api-query-body-and-path-parameters/)
+
+A questo punto il nostro swagger dovrebbe risultare molto simile al seguente:
+![Swagger finale](5.png)
 
 ## Generiamo il codice
 
@@ -231,10 +253,11 @@ Ad esempio, se il nostro applicativo deve essere scritto in Java, la Codegen cre
 
 Il metodo più veloce per utilizzare la Codegen è avvalersi delle funzionalità aggiuntive dello Swagger Editor.
 Nella barra in alto clicchiamo su `Generate Server`, dopodichè selezioniamo `spring`.
-<figura7>
+![Codegen 1](6.png)
+
 Partirà in automatico il download del nostro codice Java autogenerato, compatibile con l'utilizzo del framework Spring o Spring Boot.
 La struttura dei folder dovrebbe essere simile alla seguente
-<figura8>
+![Codegen 2](7.png)
 
 :fire: _[Spring framework](https://spring.io/)
 
